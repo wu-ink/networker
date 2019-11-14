@@ -1,6 +1,8 @@
 package com.inkwu.networker.server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -22,6 +24,14 @@ public class DailyAdviceServer {
 			
 			while (true) {
 				Socket sock = serverSock.accept();
+				
+				if (sock.getInputStream() != null) {
+					InputStreamReader streamReader = new InputStreamReader(sock.getInputStream());
+					BufferedReader reader = new BufferedReader(streamReader);
+					String message = reader.readLine();
+					System.out.println("message from client : " + message);
+				}
+				
 				
 				PrintWriter writer = new PrintWriter(sock.getOutputStream());
 				String advice = getAdvice();
