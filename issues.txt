@@ -1,0 +1,1 @@
+connection reset when exit the application.
